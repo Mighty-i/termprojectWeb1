@@ -1,8 +1,8 @@
 <?php
-session_start();
-if($_SESSION['loginstatus'] !=1)
+session_start() ;
+if($_SESSION['logStatus'] != 1)
 {
-    header("location:login.php");
-    exit();
+    header("location:login.php") ;
+    exit ;
 }
 ?>

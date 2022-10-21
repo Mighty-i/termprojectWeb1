@@ -1,23 +1,28 @@
 <?php
+session_start() ;
+header('Content-Type: charset=utf-8');
 include("connect.php") ;
-$login = $conn->escape_string($_POST['txt_login']);
-$pass = sha1($conn->escape_string($_POST['txt_password']));
-if(!empty($login) && !empty($pass))
+if(!empty($_POST['txt_login']) && !empty($_POST['txt_password']))
 {
-    $sql = "select login from users where login='$login' and password='$pass' limit 1";
-    $rs = $conn->query($sql);
-    $user = $rs->fetch_array()['login'];
-    if($user == $login)
-    {
-        session_start();
-        $_SESSION['loginstatus'] = 1;
-        header('location:index.php');
-    }
-    else{
-        echo"ไม่พบผู้ใข้ในระบบ <a href='login.php'>ย้อนกลับ</a>";
-    }
+  $password = sha1($_POST['txt_password']) ;
+  $rs = $conn->query("select * from users where login='". $conn->escape_string($_POST['txt_login']). "' and password='". $conn->escape_string($password) ."' limit 1") ;
+  echo $conn->error ;
+  $login = $rs->fetch_array()['login'] ;
+  if($login == $_POST['txt_login'])
+  {
+    $_SESSION['logStatus'] = 1;
+    $status = "ok" ;
+    $msg = "ok" ;
+  }
+  else {
+    $msg = "รหัสผ่านไม่ถูกต้อง" ;
+    $status = "" ;
+  }
 }
-else{
-    echo "ข้อมูลไม่ครบ <a href='login.php'>ย้อนกลับ</a>";
+else {
+  $msg =  "ข้อมูลไม่ครบ" ;
+  $status = "" ;
 }
+// return JSON
+echo '{"status":"'.$status.'","msg":"'.$msg.'"}' ;
 ?>
