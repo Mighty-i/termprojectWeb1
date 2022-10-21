@@ -1,5 +1,5 @@
 <?php
-include("chack.php");
+include("check.php");
 ?>
 
 <!-- $page = (!empty($_GET['page'])) ? $_GET['page'] : 1;
@@ -171,9 +171,9 @@ $rs = $conn->query("select * from company $sql_search limit $startRow,$rowPerPag
     </div>
   </nav>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
+  <div class="container text-center">
+    <div class="d-flex justify-content-center">
+      <div class="col-center">
 
         <div id="showContain"></div>
 
